@@ -13,25 +13,25 @@
 # logger = logging.getLogger('teamspy')
 
 
-# @bot_client.on(events.NewMessage(pattern='/status'))
-# async def status_handler(event):
-#     if not await is_private_chat(event):
-#         await event.respond("This command can only be used in private chats for security reasons.")
-#         return
+ @bot_client.on(events.NewMessage(pattern='/status'))
+ async def status_handler(event):
+     if not await is_private_chat(event):
+         await event.respond("This command can only be used in private chats for security reasons.")
+         return
     
-#     """Handle /status command to check user session and bot status"""
-#     user_id = event.sender_id
-#     user_data = await get_user_data(user_id)
+     """Handle /status command to check user session and bot status"""
+     user_id = event.sender_id
+     user_data = await get_user_data(user_id)
     
-#     session_active = False
-#     bot_active = False
+     session_active = False
+     bot_active = False
     
-#     if user_data and "session_string" in user_data:
-#             session_active = True
+     if user_data and "session_string" in user_data:
+             session_active = True
     
-#     # Check if user has a custom bot
-#     if user_data and "bot_token" in user_data:
-#         bot_active = True
+     # Check if user has a custom bot
+     if user_data and "bot_token" in user_data:
+        bot_active = True
     
 #     # Add premium status check
 #     premium_status = "❌ Not a premium member"
