@@ -94,7 +94,7 @@ async def rem_bot_token(C, m):
 
     
 @bot.on_message(login_in_progress & filters.text & filters.private & ~filters.command([
-    'start', 'batch', 'cancel', 'login', 'logout', 'stop', 'set', 'pay',
+    'start', 'batch', 'cancel', 'login', 'logout', 'stop', 'set',
     'redeem', 'gencode', 'generate', 'keyinfo', 'encrypt', 'decrypt', 'keys', 'setbot', 'rembot']))
 async def handle_login_steps(client, message):
     user_id = message.from_user.id
