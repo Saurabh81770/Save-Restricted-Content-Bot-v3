@@ -7,7 +7,21 @@ from shared_client import start_client
 import importlib
 import os
 import sys
+import threading
+from flask import Flask
 
+# Flask app create karein
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return "Bot is running successfully!"
+
+@app.route('/health')
+def health_check():
+    return "OK"
+
+# Your existing bot code
 async def load_and_run_plugins():
     await start_client()
     plugin_dir = "plugins"
@@ -22,20 +36,28 @@ async def load_and_run_plugins():
 async def main():
     await load_and_run_plugins()
     while True:
-        await asyncio.sleep(1)  
+        await asyncio.sleep(1)
 
-if __name__ == "__main__":
-    loop = asyncio.get_event_loop()
-    print("Starting clients ...")
+# Bot ko background thread mein run karein
+def run_bot():
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
     try:
         loop.run_until_complete(main())
     except KeyboardInterrupt:
         print("Shutting down...")
     except Exception as e:
-        print(e)
+        print(f"Bot error: {e}")
         sys.exit(1)
-    finally:
-        try:
-            loop.close()
-        except Exception:
-            pass
+
+if __name__ == "__main__":
+    # Bot thread start karein
+    bot_thread = threading.Thread(target=run_bot)
+    bot_thread.daemon = True
+    bot_thread.start()
+    
+    # Flask app start karein
+    port = int(os.environ.get("PORT", 8080))
+    print(f"Starting Flask app on port {port}")
+    app.run(host='0.0.0.0', port=port, debug=False)
+
