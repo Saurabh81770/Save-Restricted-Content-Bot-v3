@@ -1,14 +1,30 @@
 FROM python:3.10.4-slim-buster
-RUN apt update && apt upgrade -y
-RUN apt-get install git curl python3-pip ffmpeg -y
-RUN apt-get -y install git
-RUN apt-get install -y wget python3-pip curl bash neofetch ffmpeg software-properties-common
+
+# System dependencies
+RUN apt update && apt install -y \
+    git curl ffmpeg wget bash neofetch software-properties-common && \
+    rm -rf /var/lib/apt/lists/*
+
+# Working directory
 WORKDIR /app
+
+# Copy requirements first
 COPY requirements.txt .
 
-RUN pip3 install wheel
-RUN pip3 install --no-cache-dir -U -r requirements.txt
+# Install Python dependencies
+RUN pip install --no-cache-dir -U pip wheel && \
+    pip install --no-cache-dir -r requirements.txt
+
+# Copy all project files
 COPY . .
+
+# Expose Flask port
 EXPOSE 8080
 
-CMD flask run -h 0.0.0.0 -p 8080 & python3 main.py
+# Set Flask environment variables
+ENV FLASK_APP=main.py
+ENV FLASK_RUN_HOST=0.0.0.0
+ENV FLASK_RUN_PORT=8080
+
+# Run both Flask and bot together safely
+CMD ["bash", "-c", "python3 main.py & flask run"]
