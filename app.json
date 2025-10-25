@@ -29,7 +29,7 @@
 
     "OWNER_ID": {
       "description": "The user ID of the user whom you would like to add as OWNER",
-      "value": "seperate multiple with space eg 1234 5678",
+      "value": "owner_user_id_here",
       "required": true
     },
 
@@ -56,3 +56,4 @@
   ],
   "stack": "container"
 }
+
