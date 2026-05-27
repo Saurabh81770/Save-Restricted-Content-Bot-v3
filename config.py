@@ -21,6 +21,7 @@ WEBSITE_URL = os.getenv("WEBSITE_URL", "upshrink.com")
 AD_API = os.getenv("AD_API", "52b4a2cf4687d81e7d3f8f2b7bc2943f618e78cb")
 STRING = os.getenv("STRING", None)
 DEFAULT_SESSION = os.getenv("DEFAUL_SESSION", None)  # added old method of invite link joining
+FORCE_SUB = int(os.getenv("FORCE_SUB", "0"))
 
 # Phir default values define karein
 INST_COOKIES = """
