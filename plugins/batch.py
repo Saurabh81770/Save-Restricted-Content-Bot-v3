@@ -409,7 +409,8 @@ async def text_handler(c, m):
             await m.reply_text('Enter valid number.')
             return
 
-        if count > maxlimit:
+    count = int(m.text)
+maxlimit = 999999
             await m.reply_text(f'Maximum limit is {maxlimit}.')
             return
 
