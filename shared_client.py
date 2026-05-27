@@ -11,7 +11,7 @@ import asyncio
 
 # Clients initialize karein
 client = TelegramClient("telethonbot", API_ID, API_HASH)
-app = Client("pyrogrambot", api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN)
+app = Client("newbotsession", api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN)
 userbot = None
 
 if STRING:
